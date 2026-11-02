@@ -1,11 +1,10 @@
-#include <conio.h>
 #include <iostream>
+#include <conio.h>
 #include <windows.h>
 using namespace std;
-const int W = 30;       // board width  (including walls)
-const int H = 15;       // board height (including walls)
-const int MAXLEN = 200; // maximum snake length
-// ---------- Exception classes ----------
+const int W = 30;       
+const int H = 15;       
+const int MAXLEN = 200; 
 class GameException {
 public:
   const char *msg;
@@ -89,7 +88,7 @@ class Game {
   Snake s;
   int fx, fy, score;
   unsigned int seed;
-  int speed; // milliseconds per frame
+  int speed; 
   int nextRand(int n) {
     seed = seed * 1103515245u + 12345u;
     return (int)((seed >> 16) % n);
@@ -159,7 +158,6 @@ public:
   Game(int level) : score(0), seed(1) {
     if (level < 1 || level > 3)
       throw BadInput();
-    // speed in ms: Easy=250ms, Medium=150ms, Hard=80ms
     speed = 50 * (4 - level) + 100;
     fx = fy = 1;
   }
@@ -174,7 +172,6 @@ public:
       placeFood();
       while (true) {
         draw();
-        // Poll keys every 10ms, sleep the rest of the frame
         int elapsed = 0;
         while (elapsed < speed) {
           readKeys();
@@ -186,7 +183,7 @@ public:
         if (ate) {
           score += 10;
           if (speed > 80)
-            speed -= 20;   // speed up gradually
+            speed -= 20;  
           placeFood();
         }
       }
